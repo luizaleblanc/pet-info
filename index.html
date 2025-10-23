@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Petinfo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Replaced landing page with login page as main entry point -->
+    <main class="auth-page-split">
+      <!-- Left Side - Branding -->
+      <div class="auth-branding">
+        <div class="auth-branding-content">
+          <h1 class="brand-title">PetInfo</h1>
+          <h2 class="tagline">
+            <span class="highlight">Amor</span> e <span class="highlight">carinho</span> por pets
+          </h2>
+          <p class="description">
+            A rede social para compartilhar informações e fotos do seu melhor amigo
+          </p>
+
+          <div class="auth-illustration">
+            <img src="public/img-login.svg" alt="Ilustração de pets" class="auth-svg" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Auth Forms -->
+      <div class="auth-forms">
+        <div class="auth-container" id="authContainer">
+          <!-- Login Form -->
+          <div id="loginForm">
+            <h1 class="auth-title">Login</h1>
+            <form onsubmit="handleLogin(event)" novalidate>
+              <div class="form-group">
+                <label for="loginEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="loginEmail"
+                  class="form-input"
+                  placeholder="Digite seu email aqui"
+                  required
+                  autocomplete="email"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="loginPassword" class="form-label">Senha</label>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  class="form-input"
+                  placeholder="Digite sua senha aqui"
+                  required
+                  autocomplete="current-password"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Acessar</button>
+              </div>
+            </form>
+
+            <div class="auth-switch">
+              <p class="auth-switch-text">Ainda não possui conta?</p>
+              <p class="auth-switch-description">
+                Clicando no botão abaixo, você pode se cadastrar rapidamente
+              </p>
+              <button class="btn btn-secondary" onclick="showRegisterForm()">Cadastrar</button>
+            </div>
+          </div>
+
+          <!-- Register Form -->
+          <div id="registerForm" style="display: none">
+            <h1 class="auth-title">Cadastro</h1>
+            <form onsubmit="handleRegister(event)" novalidate>
+              <div class="form-group">
+                <label for="username" class="form-label">Usuário</label>
+                <input
+                  type="text"
+                  id="username"
+                  class="form-input"
+                  placeholder="Digite seu username aqui"
+                  required
+                  autocomplete="username"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="registerEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="registerEmail"
+                  class="form-input"
+                  placeholder="Digite seu email aqui"
+                  required
+                  autocomplete="email"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="profilePhoto" class="form-label">Link da foto de perfil</label>
+                <input
+                  type="url"
+                  id="profilePhoto"
+                  class="form-input"
+                  placeholder="Insira o link aqui"
+                  autocomplete="photo"
+                />
+                <small
+                  style="
+                    color: var(--text-gray);
+                    font-size: 0.85rem;
+                    display: block;
+                    margin-top: 0.25rem;
+                  "
+                >
+                  Opcional - Cole o link de uma imagem
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="registerPassword" class="form-label">Senha</label>
+                <input
+                  type="password"
+                  id="registerPassword"
+                  class="form-input"
+                  placeholder="Digite sua senha aqui"
+                  required
+                  autocomplete="new-password"
+                  aria-required="true"
+                  minlength="6"
+                />
+                <small
+                  style="
+                    color: var(--text-gray);
+                    font-size: 0.85rem;
+                    display: block;
+                    margin-top: 0.25rem;
+                  "
+                >
+                  Mínimo de 6 caracteres
+                </small>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+              </div>
+            </form>
+
+            <div class="auth-switch">
+              <p class="auth-switch-text">Já possui uma conta?</p>
+              <button class="btn btn-secondary" onclick="showLoginForm()">
+                Voltar para o login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const shouldRegister = getUrlParameter("register");
+        if (shouldRegister === "true") {
+          showRegisterForm();
+        }
+      });
+
+      function showRegisterForm() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "block";
+
+        const url = new URL(window.location);
+        url.searchParams.set("register", "true");
+        window.history.pushState({}, "", url);
+      }
+
+      function showLoginForm() {
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+
+        const url = new URL(window.location);
+        url.searchParams.delete("register");
+        window.history.pushState({}, "", url);
+      }
+    </script>
+  </body>
+</html>

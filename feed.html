@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed - Petinfo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="feed-page">
+      <header class="feed-header">
+        <div class="feed-header-content">
+          <h1 class="feed-brand">Petinfo</h1>
+          <div class="feed-user">
+            <img
+              id="feedAvatar"
+              src="public/diverse-user-avatars.png"
+              alt="Foto de perfil"
+              class="feed-avatar"
+            />
+            <span id="feedUsername" class="feed-username">Usuário</span>
+            <button class="logout-btn" onclick="handleLogout()" aria-label="Sair da conta">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Sair
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="feed-main-layout">
+        <div class="feed-container">
+          <section class="create-post-card" aria-label="Criar nova publicação">
+            <h2 class="create-post-title">Compartilhe a foto do seu pet!</h2>
+            <form id="createPostForm">
+              <div class="form-group">
+                <label for="postText" class="sr-only">Texto da publicação</label>
+                <textarea
+                  id="postText"
+                  class="post-textarea"
+                  placeholder="O que você quer compartilhar sobre seu pet?"
+                  aria-label="Digite o texto da sua publicação"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="postImage" class="form-label">Link da imagem do pet</label>
+                <input
+                  type="url"
+                  id="postImage"
+                  class="form-input"
+                  placeholder="Cole o link da imagem aqui"
+                  aria-label="Cole o link da imagem do seu pet"
+                />
+              </div>
+
+              <div class="post-actions-form">
+                <button type="submit" class="btn btn-primary btn-post">Publicar</button>
+              </div>
+            </form>
+          </section>
+
+          <section
+            id="postsContainer"
+            class="feed-posts"
+            aria-label="Feed de publicações"
+          ></section>
+        </div>
+
+        <aside class="suggestions-sidebar" aria-label="Sugestões para seguir">
+          <div class="suggestions-card">
+            <h3 class="suggestions-title">Sugestões para seguir</h3>
+
+            <div class="suggestion-item">
+              <img src="public/golden.jpeg" alt="Avatar" class="suggestion-avatar" />
+              <div class="suggestion-info">
+                <span class="suggestion-username">@golden_max</span>
+                <span class="suggestion-bio">Amante de Golden Retrievers</span>
+              </div>
+              <button class="btn-follow" onclick="toggleFollow(this)">Seguir</button>
+            </div>
+
+            <div class="suggestion-item">
+              <img src="public/gato siames.png" alt="Avatar" class="suggestion-avatar" />
+              <div class="suggestion-info">
+                <span class="suggestion-username">@miau_bella</span>
+                <span class="suggestion-bio">Tutora de gatos siameses</span>
+              </div>
+              <button class="btn-follow" onclick="toggleFollow(this)">Seguir</button>
+            </div>
+
+            <div class="suggestion-item">
+              <img src="public/beagle.png" alt="Avatar" class="suggestion-avatar" />
+              <div class="suggestion-info">
+                <span class="suggestion-username">@beagle_fun</span>
+                <span class="suggestion-bio">Aventuras caninas diárias</span>
+              </div>
+              <button class="btn-follow" onclick="toggleFollow(this)">Seguir</button>
+            </div>
+
+            <div class="suggestion-item">
+              <img src="public/gato-persa.webp" alt="Avatar" class="suggestion-avatar" />
+              <div class="suggestion-info">
+                <span class="suggestion-username">@fluffy_persian</span>
+                <span class="suggestion-bio">Gatos persas fofos</span>
+              </div>
+              <button class="btn-follow" onclick="toggleFollow(this)">Seguir</button>
+            </div>
+
+            <div class="suggestion-item">
+              <img src="public/corgi.webp" alt="Avatar" class="suggestion-avatar" />
+              <div class="suggestion-info">
+                <span class="suggestion-username">@corgi_love</span>
+                <span class="suggestion-bio">Corgis são vida</span>
+              </div>
+              <button class="btn-follow" onclick="toggleFollow(this)">Seguir</button>
+            </div>
+          </div>
+
+          <div class="suggestions-card sample-posts-card">
+            <h3 class="suggestions-title">Posts em destaque</h3>
+
+            <article class="sample-post" id="sample-post-1">
+              <div class="sample-post-header">
+                <img src="public/pet-lover.webp" alt="Avatar" class="sample-post-avatar" />
+                <div>
+                  <span class="sample-post-username">@pet_lover_123</span>
+                  <span class="sample-post-time">2h</span>
+                </div>
+              </div>
+              <p class="sample-post-text">Meu cachorrinho aprendeu um novo truque hoje!</p>
+              <img
+                src="public/cachorro-truque.webp"
+                alt="Cachorro fazendo truque"
+                class="sample-post-image"
+              />
+
+              <div class="post-actions">
+                <button
+                  class="post-action-btn"
+                  aria-label="Curtir publicação"
+                  onclick="toggleExampleLike(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                    ></path>
+                  </svg>
+                  <span>234</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Comentar"
+                  onclick="toggleExampleComments('sample-post-1')"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>45</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Republicar"
+                  onclick="toggleExampleRepost(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="17 1 21 5 17 9"></polyline>
+                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                    <polyline points="7 23 3 19 7 15"></polyline>
+                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                  </svg>
+                  <span>12</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Salvar"
+                  onclick="toggleExampleBookmark(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div id="comments-sample-post-1" class="post-comments" style="display: none">
+                <div class="comments-list" id="comments-list-sample-post-1"></div>
+                <form onsubmit="addExampleComment(event, 'sample-post-1')" class="comment-form">
+                  <input
+                    type="text"
+                    placeholder="Escreva um comentário..."
+                    class="comment-input"
+                    required
+                  />
+                  <button type="submit" class="btn-comment">Enviar</button>
+                </form>
+              </div>
+            </article>
+
+            <article class="sample-post" id="sample-post-2">
+              <div class="sample-post-header">
+                <img src="public/cat-mom.webp" alt="Avatar" class="sample-post-avatar" />
+                <div>
+                  <span class="sample-post-username">@cat_mom_forever</span>
+                  <span class="sample-post-time">5h</span>
+                </div>
+              </div>
+              <p class="sample-post-text">Dia de sol perfeito para uma soneca</p>
+              <img
+                src="public/gato-dormindo-no-sol.jpg"
+                alt="Gato dormindo no sol"
+                class="sample-post-image"
+              />
+
+              <div class="post-actions">
+                <button
+                  class="post-action-btn"
+                  aria-label="Curtir publicação"
+                  onclick="toggleExampleLike(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                    ></path>
+                  </svg>
+                  <span>189</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Comentar"
+                  onclick="toggleExampleComments('sample-post-2')"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>23</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Republicar"
+                  onclick="toggleExampleRepost(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="17 1 21 5 17 9"></polyline>
+                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                    <polyline points="7 23 3 19 7 15"></polyline>
+                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                  </svg>
+                  <span>8</span>
+                </button>
+
+                <button
+                  class="post-action-btn"
+                  aria-label="Salvar"
+                  onclick="toggleExampleBookmark(this)"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div id="comments-sample-post-2" class="post-comments" style="display: none">
+                <div class="comments-list" id="comments-list-sample-post-2"></div>
+                <form onsubmit="addExampleComment(event, 'sample-post-2')" class="comment-form">
+                  <input
+                    type="text"
+                    placeholder="Escreva um comentário..."
+                    class="comment-input"
+                    required
+                  />
+                  <button type="submit" class="btn-comment">Enviar</button>
+                </form>
+              </div>
+            </article>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script>
+      /**
+       * Funções "falsas" para os posts de exemplo da sidebar,
+       * para que eles pareçam funcionar como os reais.
+       */
+      function toggleExampleLike(button) {
+        const span = button.querySelector("span");
+        const svg = button.querySelector("svg");
+        let count = parseInt(span.textContent);
+
+        if (button.classList.contains("active")) {
+          button.classList.remove("active");
+          svg.setAttribute("fill", "none");
+          count--;
+        } else {
+          button.classList.add("active");
+          svg.setAttribute("fill", "currentColor");
+          count++;
+        }
+        span.textContent = count;
+      }
+
+      function toggleExampleRepost(button) {
+        const span = button.querySelector("span");
+        let count = parseInt(span.textContent);
+
+        if (button.classList.contains("active")) {
+          button.classList.remove("active");
+          count--;
+        } else {
+          button.classList.add("active");
+          count++;
+        }
+        span.textContent = count;
+      }
+
+      function toggleExampleBookmark(button) {
+        const svg = button.querySelector("svg");
+        if (button.classList.contains("active")) {
+          button.classList.remove("active");
+          svg.setAttribute("fill", "none");
+        } else {
+          button.classList.add("active");
+          svg.setAttribute("fill", "currentColor");
+        }
+      }
+
+      // --- FUNÇÕES DE COMENTÁRIO DE EXEMPLO ADICIONADAS ---
+
+      function toggleExampleComments(postId) {
+        const commentsSection = document.getElementById(`comments-${postId}`);
+        if (commentsSection) {
+          commentsSection.style.display =
+            commentsSection.style.display === "none" ? "block" : "none";
+        }
+      }
+
+      function addExampleComment(event, postId) {
+        event.preventDefault();
+        const input = event.target.querySelector(".comment-input");
+        const commentText = input.value.trim();
+
+        if (!commentText) return;
+
+        const commentsList = document.getElementById(`comments-list-${postId}`);
+        if (commentsList) {
+          const newComment = document.createElement("div");
+          newComment.className = "comment";
+          newComment.innerHTML = `<strong>Você:</strong> ${commentText}`;
+          commentsList.appendChild(newComment);
+        }
+
+        input.value = "";
+        showToast("Comentário adicionado!", "success");
+      }
+    </script>
+    <div id="deleteModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h3>Confirmar Exclusão</h3>
+      <p>Tem certeza que deseja apagar esta postagem? Esta ação não pode ser desfeita.</p>
+      <div class="modal-actions">
+        <button id="cancelDeleteBtn" class="btn btn-secondary">Cancelar</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Sim, apagar</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+  </body>
+</html>
