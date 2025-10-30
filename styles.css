@@ -9,7 +9,7 @@
   --primary-hover: #3557c5;
   --text-dark: #2c2c2c;
   --text-gray: #666666;
-  --bg-light: #f5f5f5;
+  --bg-light: #f5f5ff;
   --bg-input: #ebebeb;
   --white: #ffffff;
   --border-radius: 8px;
@@ -671,7 +671,7 @@ body {
 /* Suggestions sidebar styles */
 /* Increased spacing for suggestions sidebar */
 .suggestions-sidebar {
-  width: 340px;
+  width: 420px; /* <-- ESTA É A LINHA ALTERADA (de 380px) */
   flex-shrink: 0;
   margin-left: 2rem;
 }
@@ -1006,6 +1006,8 @@ body {
     margin-left: 0.5rem;
   }
 }
+
+/* --- Estilos para Comentários Fixados --- */
 
 .comment {
   display: flex;
