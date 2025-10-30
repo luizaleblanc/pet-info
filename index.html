@@ -9,9 +9,7 @@
   <body>
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- Replaced landing page with login page as main entry point -->
     <main class="auth-page-split">
-      <!-- Left Side - Branding -->
       <div class="auth-branding">
         <div class="auth-branding-content">
           <h1 class="brand-title">PetInfo</h1>
@@ -21,17 +19,14 @@
           <p class="description">
             A rede social para compartilhar informações e fotos do seu melhor amigo
           </p>
-
           <div class="auth-illustration">
             <img src="public/img-login.svg" alt="Ilustração de pets" class="auth-svg" />
           </div>
         </div>
       </div>
 
-      <!-- Right Side - Auth Forms -->
       <div class="auth-forms">
         <div class="auth-container" id="authContainer">
-          <!-- Login Form -->
           <div id="loginForm">
             <h1 class="auth-title">Login</h1>
             <form onsubmit="handleLogin(event)" novalidate>
@@ -75,7 +70,6 @@
             </div>
           </div>
 
-          <!-- Register Form -->
           <div id="registerForm" style="display: none">
             <h1 class="auth-title">Cadastro</h1>
             <form onsubmit="handleRegister(event)" novalidate>
@@ -106,13 +100,15 @@
               </div>
 
               <div class="form-group">
-                <label for="profilePhoto" class="form-label">Link da foto de perfil</label>
+                <label for="profilePhoto" class="form-label"
+                  >Link da foto de perfil (Opcional)</label
+                >
                 <input
-                  type="url"
+                  type="text"
                   id="profilePhoto"
                   class="form-input"
-                  placeholder="Insira o link aqui"
-                  autocomplete="photo"
+                  placeholder="Cole o link (URL) da imagem aqui"
+                  aria-label="Link da foto de perfil"
                 />
                 <small
                   style="
@@ -121,11 +117,9 @@
                     display: block;
                     margin-top: 0.25rem;
                   "
+                  >Se deixar em branco, usará o avatar padrão.</small
                 >
-                  Opcional - Cole o link de uma imagem
-                </small>
               </div>
-
               <div class="form-group">
                 <label for="registerPassword" class="form-label">Senha</label>
                 <input
@@ -145,9 +139,8 @@
                     display: block;
                     margin-top: 0.25rem;
                   "
+                  >Mínimo de 6 caracteres</small
                 >
-                  Mínimo de 6 caracteres
-                </small>
               </div>
 
               <div class="form-actions">
@@ -170,15 +163,12 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const shouldRegister = getUrlParameter("register");
-        if (shouldRegister === "true") {
-          showRegisterForm();
-        }
+        if (shouldRegister === "true") showRegisterForm();
       });
 
       function showRegisterForm() {
         document.getElementById("loginForm").style.display = "none";
         document.getElementById("registerForm").style.display = "block";
-
         const url = new URL(window.location);
         url.searchParams.set("register", "true");
         window.history.pushState({}, "", url);
@@ -187,7 +177,6 @@
       function showLoginForm() {
         document.getElementById("registerForm").style.display = "none";
         document.getElementById("loginForm").style.display = "block";
-
         const url = new URL(window.location);
         url.searchParams.delete("register");
         window.history.pushState({}, "", url);
