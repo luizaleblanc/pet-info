@@ -1,6 +1,7 @@
 # 🐾 PetInfo - Your Pet's Social Network
+<img width="1912" height="875" alt="Captura de tela 2025-10-30 100405" src="https://github.com/user-attachments/assets/d3437800-95ff-481b-850d-4eeab843143e" />
 
-![PetInfo](https://i.imgur.com/v82aXf7.png) **PetInfo** is a front-end project that simulates a modern social network, focusing on sharing moments and information about pets. Think of it as a Twitter or Instagram clone, but entirely dedicated to our furry friends.
+**PetInfo** is a front-end project that simulates a modern social network, focusing on sharing moments and information about pets. Think of it as a Twitter or Instagram clone, but entirely dedicated to our furry friends.
 
 This project was built using only **HTML, CSS, and pure JavaScript (ES6+)**, without any external frameworks or libraries. It demonstrates skills in DOM manipulation, responsive design, and client-side data persistence using `localStorage`.
 
@@ -61,4 +62,3 @@ Since this is a purely front-end project, you don't need a server or complex dep
 
     > **Note:** For the best experience (and to avoid potential CORS issues if you decide to expand the project), it's recommended to use an extension like **[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)** in VS Code.
 
-## 📁 File Structure
