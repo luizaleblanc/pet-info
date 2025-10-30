@@ -1,5 +1,7 @@
-# 🐾 PetInfo - Your Pet's Social Network
+
 <img width="1912" height="875" alt="Captura de tela 2025-10-30 100405" src="https://github.com/user-attachments/assets/d3437800-95ff-481b-850d-4eeab843143e" />
+
+# 🐾 PetInfo - Your Pet's Social Network
 
 **PetInfo** is a front-end project that simulates a modern social network, focusing on sharing moments and information about pets. Think of it as a Twitter or Instagram clone, but entirely dedicated to our furry friends.
 
@@ -52,10 +54,6 @@ This project was built from scratch with a focus on solid web development fundam
 
 Since this is a purely front-end project, you don't need a server or complex dependencies.
 
-1.  **Clone the repository (or download the files):**
-    ```bash
-    git clone [YOUR-REPOSITORY-URL]
-    ```
 
 2.  **Open the `index.html` file:**
     Simply open the `index.html` file directly in your preferred browser (Google Chrome, Firefox, etc.).
